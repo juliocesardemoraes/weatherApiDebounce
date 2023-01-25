@@ -1,6 +1,31 @@
 import { SetStateAction, useState } from "react";
 import "./App.css";
 
+interface ICityObject {
+  base: string;
+  clouds: { all: number };
+  cod: 200;
+  coord: { lon: number; lat: number };
+  dt: number;
+  id: number;
+  main: {
+    feels_like: number;
+    grnd_level: number;
+    humidity: number;
+    pressure: number;
+    sea_level: number;
+    temp: number;
+    temp_max: number;
+    temp_min: number;
+  };
+  name: string;
+  sys: any;
+  timezone: number;
+  visibility: number;
+  weather: Array<any>;
+  wind: any;
+}
+
 const fetchCityTemperature = async (cityName: string) => {
   const websiteName = "https://api.openweathermap.org/data/2.5/weather";
   const cityQuery = `?q=${cityName}`;
@@ -17,7 +42,10 @@ const fetchCityTemperature = async (cityName: string) => {
 
 const searchCity = async (
   city: string,
-  setCityCard: { (value: SetStateAction<string>): void; (arg0: any): void }
+  setCityCard: {
+    (value: SetStateAction<ICityObject | null>): void;
+    (arg0: any): void;
+  }
 ) => {
   const cityTemperature = await fetchCityTemperature(city);
   console.log(cityTemperature);
@@ -26,7 +54,7 @@ const searchCity = async (
 
 function App() {
   let [city, setCity] = useState("");
-  let [cityCard, setCityCard] = useState({});
+  let [cityCard, setCityCard] = useState<ICityObject | null>(null);
 
   return (
     <div className="App">
