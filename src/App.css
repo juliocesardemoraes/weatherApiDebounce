@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Outfit", sans-serif;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+input {
+  all: unset;
+  font-size: 18px;
+}
+
+button {
+  all: unset;
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  background: #10121b;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-top: 25vh;
+}
+
+.button__container {
+  height: 50px;
+  width: 70%;
+  background: #1f232f;
+  border-radius: 4rem;
+  margin-top: 2rem;
+}
+
+.button__container input {
+  width: 75%;
+  height: 100%;
+  padding-left: 1rem;
+}
+
+.button__container button {
+  width: 21%;
+  height: 100%;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  border-radius: 0 4rem 4rem 0;
+}
+
+.button__container button:hover {
+  cursor: pointer;
+  background: #fff;
+  color: #222;
+  transition: all 1s;
+}
