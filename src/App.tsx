@@ -26,7 +26,7 @@ const searchCity = async (
 
 function App() {
   let [city, setCity] = useState("");
-  let [cityCard, setCityCard] = useState("");
+  let [cityCard, setCityCard] = useState({});
 
   return (
     <div className="App">
@@ -47,7 +47,7 @@ function App() {
         </button>
       </div>
 
-      <div className="card">{cityCard.main.temp}</div>
+      <div className="card">{cityCard?.main?.temp}</div>
     </div>
   );
 }
