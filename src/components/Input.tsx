@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 const fetchCityTemperature = async (cityName: string) => {
+  const apiKeyEnv = import.meta.env.VITE_API_KEY || process.env.API_URL;
   const websiteName = "https://api.openweathermap.org/data/2.5/weather";
   const cityQuery = `?q=${cityName}`;
   const apiKey = `&appid=${import.meta.env.VITE_API_KEY}`;
@@ -20,7 +21,7 @@ const searchCity = async (city: string, setCityCard: (arg0: any) => void) => {
 };
 
 const debounce = (callback: any) => {
-  let timeout: number | undefined;
+  let timeout: any;
 
   return (argument: any) => {
     clearTimeout(timeout);
