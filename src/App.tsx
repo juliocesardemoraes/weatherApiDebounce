@@ -1,30 +1,7 @@
 import { SetStateAction, useState } from "react";
 import "./App.css";
-
-interface ICityObject {
-  base: string;
-  clouds: { all: number };
-  cod: 200;
-  coord: { lon: number; lat: number };
-  dt: number;
-  id: number;
-  main: {
-    feels_like: number;
-    grnd_level: number;
-    humidity: number;
-    pressure: number;
-    sea_level: number;
-    temp: number;
-    temp_max: number;
-    temp_min: number;
-  };
-  name: string;
-  sys: any;
-  timezone: number;
-  visibility: number;
-  weather: Array<any>;
-  wind: any;
-}
+import Card from "./components/Card";
+import { ICityObject } from "./typeSafe/ICityObject";
 
 const fetchCityTemperature = async (cityName: string) => {
   const websiteName = "https://api.openweathermap.org/data/2.5/weather";
@@ -44,24 +21,24 @@ const searchCity = async (
   city: string,
   setCityCard: {
     (value: SetStateAction<ICityObject | null>): void;
-    (arg0: any): void;
+    (arg0: unknown): void;
   }
 ) => {
   const cityTemperature = await fetchCityTemperature(city);
-  console.log(cityTemperature);
   setCityCard(cityTemperature);
 };
 
 function App() {
-  let [city, setCity] = useState("");
-  let [cityCard, setCityCard] = useState<ICityObject | null>(null);
+  const [city, setCity] = useState("");
+  const [cityCard, setCityCard] = useState<ICityObject | null>(null);
 
   return (
     <div className="App">
       <h1>WEATHER API</h1>
+      <p>Busque aqui a temperatura de qualquer cidade do mundo</p>
       <div className="button__container">
         <input
-          placeholder="MARIA DA FE"
+          placeholder="NOME DA CIDADE"
           onChange={(event) => {
             setCity(event.target.value);
           }}
@@ -74,8 +51,7 @@ function App() {
           Procurar Temperatura
         </button>
       </div>
-
-      <div className="card">{cityCard?.main?.temp}</div>
+      {cityCard !== null && <Card city={cityCard}></Card>}
     </div>
   );
 }
