@@ -39,7 +39,7 @@ function Input({ setCityCard }: any) {
   return (
     <div className="button__container">
       <input
-        placeholder="NOME DA CIDADE"
+        placeholder="Digite o nome da cidade"
         onChange={(event) => {
           setCity(event.target.value);
         }}
