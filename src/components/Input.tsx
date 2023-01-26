@@ -26,11 +26,10 @@ const debouncedSearch = debounce(async (city: any, setCityCard: any) => {
 }, 300);
 
 async function handleChange(
-  e: React.ChangeEvent<HTMLInputElement>,
-  setCityCard: Dispatch<SetStateAction<string>>,
-  setTempCity: Dispatch<SetStateAction<string>>
+  e: string,
+  setCityCard: Dispatch<SetStateAction<string>>
 ) {
-  await debouncedSearch(e, setCityCard, setTempCity);
+  await debouncedSearch(e, setCityCard);
 }
 
 function Input({ cityCard, setCityCard }: any) {
@@ -42,7 +41,7 @@ function Input({ cityCard, setCityCard }: any) {
         placeholder="Digite o nome da cidade"
         onChange={(event) => {
           setTempCity(event.target.value);
-          handleChange(event.target.value, setCityCard, setTempCity);
+          handleChange(event.target.value, setCityCard);
         }}
       ></input>
       <button
