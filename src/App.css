@@ -46,10 +46,13 @@ span {
   color: var(--color--white);
 }
 
+body {
+  background: #10121b;
+  min-height: 110vh;
+}
+
 .App {
   width: 100vw;
-  height: 100vh;
-  background: #10121b;
   color: #fff;
   display: flex;
   flex-direction: column;
