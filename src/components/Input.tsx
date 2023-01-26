@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import debounce from "lodash.debounce";
 
 const fetchCityTemperature = async (cityName: string) => {
   const apiKeyEnv = import.meta.env.VITE_API_KEY || process.env.API_URL;
@@ -20,33 +21,33 @@ const searchCity = async (city: string, setCityCard: (arg0: any) => void) => {
   setCityCard(cityTemperature);
 };
 
-const debounce = (callback: any) => {
-  let timeout: any;
+const debouncedSearch = debounce(async (city: any, setCityCard: any) => {
+  searchCity(city, setCityCard);
+}, 300);
 
-  return (argument: any) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => callback(argument), 500);
-  };
-};
+async function handleChange(
+  e: React.ChangeEvent<HTMLInputElement>,
+  setCityCard: Dispatch<SetStateAction<string>>,
+  setTempCity: Dispatch<SetStateAction<string>>
+) {
+  await debouncedSearch(e, setCityCard, setTempCity);
+}
 
-function Input({ setCityCard }: any) {
-  const [city, setCity] = useState("");
-
-  useEffect(() => {
-    debounce(searchCity(city, setCityCard));
-  }, [city]);
+function Input({ cityCard, setCityCard }: any) {
+  const [tempCity, setTempCity] = useState("");
 
   return (
     <div className="button__container">
       <input
         placeholder="Digite o nome da cidade"
         onChange={(event) => {
-          setCity(event.target.value);
+          setTempCity(event.target.value);
+          handleChange(event.target.value, setCityCard, setTempCity);
         }}
       ></input>
       <button
         onClick={() => {
-          searchCity(city, setCityCard);
+          searchCity(tempCity, setCityCard);
         }}
       >
         Procurar Temperatura
