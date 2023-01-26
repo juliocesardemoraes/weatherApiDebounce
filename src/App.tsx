@@ -21,7 +21,7 @@ const searchCity = async (
   city: string,
   setCityCard: {
     (value: SetStateAction<ICityObject | null>): void;
-    (arg0: unknown): void;
+    (arg0: any): void;
   }
 ) => {
   const cityTemperature = await fetchCityTemperature(city);
